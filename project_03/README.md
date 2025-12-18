@@ -28,13 +28,47 @@ The next steps I did was creating a file structure to make Terraform configurati
 
 provider.tf -  This file defines the cloud provider (AWS) and the region where resources are deployed.
 
+![alt text](<screenshots/Screenshot 2025-12-18 125657.png>)
+
+I started by specifying the AWS provider, telling Terraform which AWS account and region to use.
+I use a variable aws_region so it can easily be changed if I want to deploy in another region.
+
 variables.tf - This file holds variable definitions  on placeholders for values such as region, VPC CIDR, AMI, key pair, etc.
  Using variables makes the Terraform code reusable and scalable.
 For example, if I want to deploy in another region, I can simply change the region value here.
 
+![alt text](<screenshots/Screenshot 2025-12-18 130215.png>)
+
 main.tf -  This defines the main AWS infrastructure.
 
+I created a VPC, which is my private network in AWS and added a public subnet inside the VPC.
+
+![alt text](<screenshots/Screenshot 2025-12-18 130437.png>)
+
+I attached an Internet Gateway to my VPC so my EC2 instances can access the internet and created a route table that directs all outbound traffic to the internet gateway (0.0.0.0/0) and created a security group to control inbound and outbound traffic.
+
+![alt text](<screenshots/Screenshot 2025-12-18 130530.png>)
+
+![alt text](<screenshots/Screenshot 2025-12-18 130625.png>)
+
+The launch template defines how my EC2 instances will be created and Auto Scaling Group ensures I always have the desired number of EC2 instances.
+
+![alt text](<screenshots/Screenshot 2025-12-18 130707.png>)
+
+I added a manual scaling policy.
+
+When triggered, it increases the number of instances by 1.
+Cooldown period ensures the system has time to stabilize before another scaling action.
+
+![alt text](<screenshots/Screenshot 2025-12-18 130826.png>)
+
+![alt text](<screenshots/Screenshot 2025-12-18 130810.png>)
+
+
 output.tf - This file displays useful output information after Terraform deployment.
+
+![alt text](<screenshots/Screenshot 2025-12-18 132322.png>)
+
 
 terraform.tfstate -  This is an automatically generated file that Terraform uses to track the real-world state of your AWS resources.
 Purpose:
