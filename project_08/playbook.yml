@@ -1,0 +1,21 @@
+---
+- name: Patch EC2 instances automatically
+  hosts: ec2_instances
+  become: yes
+  tasks:
+    - name: Update all packages
+      yum:
+        name: "*"
+        state: latest
+
+    - name: Reboot the server if kernel updated
+      reboot:
+        msg: "Reboot initiated by Ansible after updates"
+        connect_timeout: 5
+        reboot_timeout: 600
+        pre_reboot_delay: 0
+        post_reboot_delay: 30
+        test_command: whoami
+
+    - name: Check uptime after reboot
+      command: uptime
