@@ -138,14 +138,12 @@ After I ran and deployed all resources with Terraform, I logged into the AWS Man
 
 ![alt text](<screenshots/Screenshot 2025-11-11 223715.png>)
 
-I verified: 
+I verified the EC2 instances by navigating to EC2  Instances and confirmed that:
 
-EC2 Instances
-I navigated to EC2 → Instances and confirmed:
-•	The correct number of instances were deployed
-•	Each instance had the proper Name tag
-•	Each instance had the required backup tag (Backup = true)
-•	All instances were running without errors
+The correct number of instances were deployed, 
+Each instance had the appropriate Name tag,
+Each instance included the required backup tag (Backup = true),
+All instances were running successfully with no errors.
 
 ![alt text](<screenshots/Screenshot 2025-11-11 223938.png>)
 
