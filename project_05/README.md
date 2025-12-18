@@ -54,7 +54,7 @@ When the build completed successfully, I saw a message like this:
 
 That AMI is now available in my AWS account under EC2 - AMIs.
 
-![alt text](<screenshots/Screenshot 2025-10-28 222548.png>)
+![alt text](<screenshots/Screenshot 2025-10-28 222548-1.png>)
 
 
 ## 4. The AMI I Built
