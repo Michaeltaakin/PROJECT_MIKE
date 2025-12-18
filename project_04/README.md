@@ -53,13 +53,16 @@ After running Terraform, this shows the Load Balancer’s public DNS to access m
 
 
 
-## Step 2: Initialize and Deploy Terraform
+## Step 2: Deploying Infrastructure with Terraform
 
 I ran these commands in each steps for deployment:
 
-terraform init -  downloads AWS provider plugins
-terraform plan - previews what will be created
-terraform apply - actually creates all resources
+terraform init – downloads the required AWS provider plugins
+
+terraform plan – previews the resources that will be created or modified
+
+terraform apply – applies the configuration and creates all resources
+
 
 ![alt text](<screenshots/Screenshot 2025-10-10 103857.png>) 
 
@@ -144,20 +147,10 @@ I verified the setup by visiting each instance’s public IP (and the Load Balan
 
 ## Validation
 
-After deployment:
+After deployment, I verified that Nginx was installed and running on all EC2 instances. I accessed the ELB DNS and confirmed that my custom web page was being served. I also simulated an instance failure and observed that traffic continued to flow to the healthy instances.
 
-Verified Nginx was installed and running on all EC2 instances.
-Accessed ELB DNS → Confirmed the custom web page was served.
-Simulated an instance failure → Traffic continued to flow to healthy instances.
-
-## Learning Outcomes
-
-I Learned how to automate web server deployment with Ansible.
-Gained experience configuring AWS ELB to distribute traffic across multiple EC2 instances.
-Understood high availability and load balancing concepts.
-Practiced Infrastructure as Code principles with Ansible and optional Terraform integration.
+Through this process, I gained experience in automating web server deployment with Ansible, configuring AWS ELB to distribute traffic across multiple EC2 instances, understanding high availability and load balancing concepts, and practicing Infrastructure as Code principles with Ansible and optional Terraform integration.
 
 ## Conclusion
 
-This project allowed me to create a scalable, highly available web architecture using Ansible and AWS ELB.
-I gained hands-on experience with automation, load balancing, and health checks, which are critical for production-grade web applications.
+This project allowed me to build a scalable, highly available web architecture using Ansible and AWS ELB. I gained hands-on experience with automation, load balancing, and health checks, which are essential skills for production-grade web applications.
