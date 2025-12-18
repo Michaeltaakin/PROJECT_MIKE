@@ -5,8 +5,7 @@ In this project, I used Terraform to design and deploy a complete AWS network en
 ## What I implemented
 # 1. Setting up Terraform and AWS Provider
 
-First, I configured Terraform so it knows I'm working in AWS and which region I want to deploy things into.
-I also used variables so I can easily change things like the AMI, instance type, and number of EC2s later without touching the main code. This makes the configuration flexible and easy to modify.
+First, I configured Terraform to connect to AWS and specified the region where resources would be deployed. I also used variables for values such as the AMI, instance type, and number of EC2 instances, allowing these settings to be updated easily without modifying the main configuration. This approach makes the setup flexible and easy to maintain.
 
 ![alt text](<screenshots/Screenshot 2025-12-11 120543.png>)
 
@@ -19,14 +18,12 @@ This VPC serves as the foundation for all network components.
 
 # 3. Built Public Subnets Across Two AZs
 
-I created two public subnets, each placed in a different Availability Zone (us-east-2a and us-east-2b) for high availability.
-Both subnets were configured to automatically assign public IP addresses to instances launched within them.   
+I created two public subnets in separate Availability Zones (us-east-2a and us-east-2b) to ensure high availability. Both subnets were configured to automatically assign public IP addresses to any instances launched within them.   
 
 ![alt text](<screenshots/Screenshot 2025-12-10 213340.png>)
 
 # 4. Built a Private Subnet
-I added a private subnet in us-east-2a.
-Instances launched here do not receive public IPs, making it suitable for backend or internal workloads.
+I created a private subnet in us-east-2a where instances do not receive public IP addresses, making it suitable for backend or internal workloads that should not be directly accessible from the internet.
 
 ![alt text](<screenshots/Screenshot 2025-12-10 213340.png>)
 
@@ -48,14 +45,7 @@ This is what officially makes them “public.”
 
 # 7. Built a Security Group for SSH + HTTP
 
-I created one security group that allows:
-SSH (port 22)
-HTTP (port 80)
-All outbound traffic.
-This security group is attached to every EC2 I launched, both public and private.
-In my setup, the private subnet’s route table does not have a route to an Internet Gateway.
-Because of this, any traffic coming from the internet has no path to reach my EC2 instance.
-So even if my security group allows ports like 22 or 80, the instance stays protected because the route table prevents any external internet access.
+I created a security group that allows SSH (port 22), HTTP (port 80), and all outbound traffic. This security group is attached to all EC2 instances, both in public and private subnets. For the private subnet, the route table does not include a route to an Internet Gateway. As a result, any traffic from the internet has no path to reach these instances. Even though the security group allows ports like 22 and 80, the instances remain protected because the route table prevents external access.
 
 ![alt text](<screenshots/Screenshot 2025-12-10 213100.png>)
 
@@ -78,8 +68,7 @@ This increases high availability and reduces downtime.
 
 # 8. EC2 Instance in Private Subnet
 
-I deployed an additional EC2 instance into the private subnet.
-This instance does not get a public IP and can only be accessed from inside the VPC (for example, through a bastion host or via Systems Manager).
+I deployed an additional EC2 instance in the private subnet. This instance does not receive a public IP and can only be accessed internally within the VPC, for example, through a bastion host or AWS Systems Manager. It simulates a backend server, such as a database or other internal service.
 
 This simulates a backend server such as a database or internal service.
 
