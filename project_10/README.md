@@ -31,12 +31,20 @@ Contains the resources that Terraform creates:
 -Custom policies for S3 and CloudWatch.
 -Attachments linking policies to the role.
 
+![alt text](<screenshots/Screenshot 2025-12-18 183334.png>)
+
+ ![alt text](<screenshots/Screenshot 2025-12-18 183313.png>)
+ 
+  ![alt text](<screenshots/Screenshot 2025-12-18 183358.png>)
+
 # variables.tf
 Stores input variables for the project:
 
 -AWS region.
 -IAM role name.
 -S3 bucket ARN.
+
+![alt text](<screenshots/Screenshot 2025-12-18 183520.png>)
 
 Variables make the project flexible and reusable without editing main.tf.
 
@@ -46,6 +54,8 @@ Displays key information after Terraform deploys resources:
 -EC2 IAM role ARN.
 -Instance profile name.
 -Outputs help confirm the deployment and reference resources in other Terraform configurations or in AWS console.
+
+![alt text](<screenshots/Screenshot 2025-12-18 183605.png>)
 
 # provider.tf
 Configures Terraform to connect to AWS:
