@@ -24,17 +24,19 @@ Below is here is  how I organized my Packer project files:
 
 •	scripts/install_nginx.sh - Bash script to install and configure Nginx. This script installs Nginx, configures basic security, and prepares the server.
 
+![alt text](<screenshots/Screenshot 2025-12-18 170513.png>)
+
 •	web/ Contains my static website files
 
+![alt text](<screenshots/Screenshot 2025-12-18 170750.png>)
 
 •	packer-template.pkr.hcl - My main Packer configuration file
 
+![alt text](<screenshots/Screenshot 2025-12-18 170911.png>)
+
 ## 3. Building the Image with Packer
 
-I ran the following command in my project directory:
-packer init .
-packer validate packer-template.pkr.hcl
-packer build packer-template.pkr.hcl
+I ran the following commands in my project directory: packer init ., packer validate packer-template.pkr.hcl, and packer build packer-template.pkr.hcl. Before running these commands, I ensured that my script file, install_nginx.sh, had executable permissions so it could run successfully during the image build process.
 
 ![alt text](<screenshots/Screenshot 2025-10-23 144233.png>)
 
@@ -77,16 +79,17 @@ If I want to deploy a new EC2 instance later, I can select this AMI — it will 
 
 
 ## 5. Uploading Website Files to S3
-As part of the Packer process, my files in the web/ folder were automatically uploaded to S3 using:
+As part of the Packer process, my files in the web/ directory were automatically uploaded to S3 using:
 aws s3 sync web/ s3://my-webapp-bucket2
 
 
 However, I also manually verified this process from the AWS Console to ensure the files were uploaded correctly.
 
 ## 6. Setting Up S3 Website Hosting (Manual via AWS Console)
-Since I didn’t use Terraform for this part, I configured the hosting manually.
 
-1.	Created a new S3 bucket
+For this part, I configured the S3 hosting manually.
+
+1. I created a new S3 bucket
 
 Name: my-webapp-bucket2
 Region: us-east-2
