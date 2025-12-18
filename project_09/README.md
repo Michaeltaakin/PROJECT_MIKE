@@ -156,18 +156,18 @@ All instances were running successfully with no errors.
 ![alt text](<screenshots/Screenshot 2025-11-11 224111.png>)
 
 IAM Role
-Under IAM → Roles, I located the backup role I created.
+Under IAM - Roles, I located the backup role I created.
 I verified that:
 •	The trust relationship allowed backup.amazonaws.com
 •	The AWS-managed policy AWSBackupServiceRolePolicyForBackup was successfully attached
 
 Backup Vault
-In AWS Backup → Backup vaults, I confirmed:
+In AWS Backup - Backup vaults, I confirmed:
 •	The vault was created with the correct name
 •	It was active and ready to receive recovery points
 
 Backup Plan
-Inside AWS Backup → Backup plans, I verified:
+Inside AWS Backup - Backup plans, I verified:
 •	The backup plan existed with the correct name
 •	The daily schedule was active
 •	The plan was using the correct backup vault
@@ -180,7 +180,7 @@ I confirmed that:
 •	AWS Backup successfully included the EC2 instances based on the tag Backup = true
 
 CloudWatch Alarms
-In CloudWatch → Alarms, I checked:
+In CloudWatch - Alarms, I checked:
 •	There was one auto-recovery alarm per EC2 instance
 •	Each alarm monitored the StatusCheckFailed_System metric
 •	Each alarm had the automated recovery action configured correctly
