@@ -1,0 +1,26 @@
+---
+- name: Deploy Nginx on EC2
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Update system packages
+      yum:
+        name: "*"
+        state: latest
+
+    - name: Install Nginx
+      yum:
+        name: nginx
+        state: present
+
+    - name: Start Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Copy custom web page
+      copy:
+        src: index.html
+        dest: /usr/share/nginx/html/index.html
