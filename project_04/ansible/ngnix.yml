@@ -1,0 +1,32 @@
+---
+- name: Deploy Nginx on EC2
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Remove Apache
+      yum:
+        name: httpd
+        state: absent
+        
+    - name: Update package list
+      yum:
+        name: "*"
+        state: latest
+
+    - name: Install Nginx
+      yum:
+        name: nginx
+        state: present
+
+    - name: Start Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Create a simple index.html page
+      copy:
+        dest: /usr/share/nginx/html/index.html
+        content: |
+          <h1>Hello from {{ inventory_hostname }}!</h1>
