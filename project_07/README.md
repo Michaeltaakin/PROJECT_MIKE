@@ -24,28 +24,16 @@ In my main.tf, I configured the AWS provider so Terraform knows I’m working in
 provider "aws" {
   region = "us-east-2"
 }
-Step 3: I Created an IAM Role for EC2
+![alt text](<screenshots/Screenshot 2025-12-18 175706.png>)
+
+## Step 3: I Created an IAM Role for EC2
+
 Since my EC2 instance needs permission to send logs to CloudWatch, I created an IAM Role and attached a policy to it.
 This role is like a “badge” that allows my instance to communicate securely with CloudWatch.
 
-resource "aws_iam_role" "ec2_cloudwatch_role" {
-  name = "ec2-cloudwatch-role"
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "ec2.amazonaws.com"
-      }
-    }]
-  })
-}
+![alt text](<screenshots/Screenshot 2025-12-18 175935.png>)
 
-resource "aws_iam_role_policy_attachment" "cloudwatch_policy" {
-  role       = aws_iam_role.ec2_cloudwatch_role.name
-  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
-}
+![alt text](<screenshots/Screenshot 2025-12-18 180049.png>)
 
 This ensures the EC2 instance can publish metrics and logs to CloudWatch safely.
 
@@ -54,58 +42,14 @@ This ensures the EC2 instance can publish metrics and logs to CloudWatch safely.
 
 Next, I created a security group to allow SSH (port 22) and HTTP (port 80) traffic to my EC2 instance.
 
-resource "aws_security_group" "ec2_sg" {
-  name        = "ec2-security-group"
-  description = "Allow SSH and HTTP"
-  vpc_id      = "vpc-xxxxxx" # or use your default VPC
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
+![alt text](<screenshots/Screenshot 2025-12-18 180142.png>)
 
 ## Step 5: Create the User Data Script
 
 In my user_data.sh file, I wrote a script that installs and starts the CloudWatch Agent when the EC2 instance launches.
 
-#!/bin/bash
-yum update -y
-yum install -y amazon-cloudwatch-agent
+![alt text](<screenshots/Screenshot 2025-12-18 180236.png>)
 
-cat <<EOF > /opt/aws/amazon-cloudwatch-agent/bin/config.json
-{
-  "logs": {
-    "logs_collected": {
-      "files": {
-        "collect_list": [
-          {
-            "file_path": "/var/log/messages",
-            "log_group_name": "/ec2/instance/logs",
-            "log_stream_name": "{instance_id}-system-logs"
-          }
-        ]
-      }
-    }
-}
-EOF
 
 systemctl enable amazon-cloudwatch-agent
 systemctl start amazon-cloudwatch-agent
@@ -141,6 +85,8 @@ resource "aws_sns_topic_subscription" "email_subscription" {
   endpoint  = var.alert_email 
 
 Then I confirmed the email sent by AWS SNS to activate the subscription.
+
+![alt text](<screenshots/Screenshot 2025-12-18 180456.png>)
 
 
 ## Step 9: Create a CloudWatch Alarm
