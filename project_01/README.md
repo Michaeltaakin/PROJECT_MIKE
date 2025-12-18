@@ -70,7 +70,6 @@ This increases high availability and reduces downtime.
 
 I deployed an additional EC2 instance in the private subnet. This instance does not receive a public IP and can only be accessed internally within the VPC, for example, through a bastion host or AWS Systems Manager. It simulates a backend server, such as a database or other internal service.
 
-This simulates a backend server such as a database or internal service.
 
 ![alt text](<screenshots/Screenshot 2025-12-10 212527.png>)
 
