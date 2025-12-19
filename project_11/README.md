@@ -26,17 +26,39 @@ I created a folder structure to organize my Terraform and Lambda code:
 # main.tf
 This file builds all AWS resources, including IAM roles and policies, Lambda functions for starting and stopping EC2, EventBridge schedules, and the permissions needed for EventBridge to trigger Lambda. It is the core infrastructure file for this automation.
 
+![alt text](<screenshots/Screenshot 2025-12-18 204128.png>)
+
+![alt text](<screenshots/Screenshot 2025-12-18 204313.png>)
+
+![alt text](<screenshots/Screenshot 2025-12-18 204251.png>)
+
+![alt text](<screenshots/Screenshot 2025-12-18 204211.png>)
+
+![alt text](<screenshots/Screenshot 2025-12-18 204330.png>)
+
+![alt text](<screenshots/Screenshot 2025-12-18 204421.png>)
+
+
+
 # variables.tf
 This file defines the input variables needed for the project. It includes the AWS region (in my case, us-east-2) and the EC2 instance ID that Lambda should control. I pass the instance ID at runtime when applying the Terraform plan.
+
+![alt text](<screenshots/Screenshot 2025-12-18 205148.png>)
 
 # outputs.tf
 This file prints useful information after Terraform applies the infrastructure. It displays ARNs for the Lambda functions, EventBridge rules, and IAM roles, making it easier for me to reference or monitor them.
 
+![alt text](<screenshots/Screenshot 2025-12-18 205357.png>)
+
 # start_test.py
 This Python script contains the code that Lambda executes to start my EC2 instance. It uses boto3 to communicate with EC2, reads the instance ID from environment variables, and logs details to CloudWatch for debugging.
 
+![alt text](<screenshots/Screenshot 2025-12-18 205518.png>)
+
 # stop_test.py
 This script does the same thing as the start script, except it sends a stop command to the EC2 instance. It also prints helpful logs so I can monitor the stop process.
+
+![alt text](<screenshots/Screenshot 2025-12-18 205532.png>)
 
 # start_test.zip and stop_test.zip
 These ZIP files contain the Python scripts and are uploaded by Terraform to Lambda. Lambda cannot use raw .py files, so packaging them into ZIP files is required.
